@@ -4,10 +4,10 @@
 ##set $PATH veriables           ✓
 ## run doom install script
 ## set up emacs server
-## add shortcut to desktop for client
+## add Shortcut to desktop for client
 ## Install all-the-icons font  https://github.com/domtronn/all-the-icons.el/tree/master/fonts
 
-
+$LoggedInUser = $env:UserName
 
 
 function SetEnvironmentalVeriables {
@@ -34,4 +34,16 @@ functon installchco {
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
     choco install git ripgrep fd git -y 
     choco install git ripgrep fd git -y 
+}
+
+function EmacsShortcuts {
+    $LoggedInUser = $env:UserName
+    $ShortcutPath = "C:\Users\" + $LoggedInUser + "\Desktop\DoomEmacs.lnk"
+    $SourceFilePath = "C:\Program Files\Emacs\emacs-28.1\bin\emacsclientw.exe"
+    $WScriptObj = New-Object -ComObject ("WScript.Shell")
+    $Shortcut = $WscriptObj.CreateShortcut($ShortcutPath)
+    $Shortcut.TargetPath = $SourceFilePath
+    $Shortcut.Arguments = "-n -c -a `" `""
+    $Shortcut.Save()
+
 }
