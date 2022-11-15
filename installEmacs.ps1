@@ -4,11 +4,11 @@ Function Main {
     Write-Host -Object "This will Download and install and set up everything you need to run doom emacs."
     Write-Host -Object "You should not need to do anything besides click on the new shortcut on your desktop."
     Write-Host -Object "There will be errors, Especially in the font installs portion of this script. It's a dumb windows thing."  
-    $λ = Read-Host "press any key to continue"    
+    $lambda = Read-Host "press any key to continue"    
     Do {
-        Clear-Host 
-        Write-Host -Object '**********************'
-        Write-Host -Object 'Emacs+Doom Installer' -ForegroundColor Yellow
+         Clear-Host 
+         Write-Host -Object '**********************'
+         Write-Host -Object 'Emacs+Doom Installer' -ForegroundColor Yellow
         Write-Host -Object '**********************'
         Write-Host -Object '1.  Run the whole script please. Install and set up everything because I am lazy. '
         Write-Host -Object ''
