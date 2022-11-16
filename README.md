@@ -4,4 +4,5 @@ Automatic install of doom emacs on windows systems
  It will also set up a nice desktop shortcut for you (that will try and connect to an emacs 'server' and if it doesnt find one, start it itself)
  and also set up a emacs server on login.
  
+ Run powershell as admin, and paste this into powershell
  iwr -useb https://raw.githubusercontent.com/briantehowenerer/DoomEmacsInstall/main/installEmacs.ps1 | iex
