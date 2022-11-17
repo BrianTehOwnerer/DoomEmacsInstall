@@ -10,10 +10,10 @@ Automatic install of doom emacs on windows systems
 
 It will do it all, 
   * install emacs, 
-  *set up all the path environmental variables for you, 
-  *as well as download and "install" doom emacs.
-  *create a startup script for starting a server on login
-  *It will also set up a nice desktop shortcut for you (that will try and connect to an emacs 'server' and if it doesn't find one, start it itself)
+  * set up all the path environmental variables for you, 
+  * as well as download and "install" doom emacs.
+  * create a startup script for starting a server on login
+  * It will also set up a nice desktop shortcut for you (that will try and connect to an emacs 'server' and if it doesn't find one, start it itself)
 
  
  Run PowerShell as admin, and paste this into Powershell
