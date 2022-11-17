@@ -1,22 +1,17 @@
 $LoggedInUser = $env:UserName
 Function Main {
-    Clear-Host    
-    Write-Host -Object "This will Download and install and set up everything you need to run doom emacs."
-    Write-Host -Object "You should not need to do anything besides click on the new shortcut on your desktop."
-    Write-Host -Object "There will be errors, Especially in the font installs portion of this script. It's a dumb windows thing."  
-    $lambda = Read-Host "press any key to continue"    
     Do {
-         Clear-Host 
-         Write-Host -Object '**********************'
-         Write-Host -Object 'Emacs+Doom Installer' -ForegroundColor Yellow
-        Write-Host -Object '**********************'
+        Clear-Host 
+        Write-Host -Object '=-=-=-=-=-=-=-=-=-=-=-=-'   -ForegroundColor Magenta
+        Write-Host -Object '  Emacs+Doom Installer  '   -ForegroundColor Magenta
+        Write-Host -Object '=-=-=-=-=-=-=-=-=-=-=-=-'   -ForegroundColor Magenta
         Write-Host -Object '1.  Run the whole script please. Install and set up everything because I am lazy. '
         Write-Host -Object ''
         Write-Host -Object '2.  Just emacs please! '
         Write-Host -Object ''
         Write-Host -Object '3.  One order of DOOM for my already installed Emacs '
         Write-Host -Object ''
-        Write-Host -Object '4.  give me all-the-icons.ttf ! '
+        Write-Host -Object '4.  give me all-the-icons.ttf! '
         Write-Host -Object ''
         Write-Host -Object '5.  Just the aweful environmental Veriables for me. '
         Write-Host -Object $errout
@@ -30,24 +25,19 @@ Function Main {
                 EmacsShortcuts
                 EmacsServer
                 InstallFonts
-                anyKey
             }
             2 {
                 InstallChco
-                anyKey
             }
             3 {
                 GitDoom
                 InstallDoom
-                anyKey
             }
             4 {
                 InstallFonts
-                anyKey
             }
             5 {
                 SetEnvironmentalVeriables
-                anyKey
             }
             Q {
                 Exit
@@ -65,13 +55,13 @@ function SetEnvironmentalVeriables {
     ##This bit of code writes the new $PATH value to the registry... yes windows is this stupid you have to read the old value, add yours to it, and write it back whole hog.
     $LoggedInUser = $env:UserName
 
-    $NewPathData = "C:\Users\" + $LoggedInUser + "\.emacs.d\bin" + ":" + "C:\Users\" + $LoggedInUser + "\.emacs.d\bin"
+    $NewPathData = "C:\Users\" + $LoggedInUser + "\.emacs.d\bin"
     #Set registry key
     $RegistryPath = "Registry::HKLM\System\CurrentControlSet\Control\Session Manager\Environment"
     #pull current registry key data
     $OldPathData = (Get-ItemProperty -Path "$RegistryPath" -Name PATH).Path
     #create the final string
-    $FinalPathData = $OldPathData + ":" + $NewPathData
+    $FinalPathData = $OldPathData + ";" + $NewPathData
     #write string back to registry for PATH
     Set-ItemProperty -Path "$RegistryPath" -Name PATH -Value $FinalPathData
     #Create the "HOME" path for emacs, so it uses that insted of the appdata folder.
@@ -86,7 +76,8 @@ function InstallChco {
 }
 
 function GitDoom {
-    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
+    $emacsfolder = "C:\Users\" + $env:UserName + ".emacs.d"
+    git clone --depth 1 https://github.com/doomemacs/doomemacs $emacsfolder
 }
 
 function InstallDoom {
@@ -96,7 +87,7 @@ function InstallDoom {
 function EmacsShortcuts {
     #creating a shortcut in for emacs onto your desktop.
     $LoggedInUser = $env:UserName
-    $ShortcutPath = "C:\Users\" + $LoggedInUser + "\Desktop\DoomEmacs.lnk"
+    $ShortcutPath = "C:\Users\" + $LoggedInUser + "\Desktop\Emacs.lnk"
     $SourceFilePath = "C:\Program Files\Emacs\emacs-28.1\bin\emacsclientw.exe"
     $WScriptObj = New-Object -ComObject ("WScript.Shell")
     $Shortcut = $WscriptObj.CreateShortcut($ShortcutPath)
@@ -111,7 +102,7 @@ function EmacsServer {
     #Sets the target file
     $serverstartfile = $env:APPDATA + "\Microsoft\Windows\Start Menu\Programs\Startup\EmacsServerStartup.bat"
     #in case you decide to run this script again, delete the old file to make sure you didn't screw something up.
-    del $serverstartfile -Force
+    Remove-Item $serverstartfile -Force
     "rem Sets HOME for current shell" | out-file $serverstartfile -Append
     "set HOME=%APPDATA%" | out-file $serverstartfile -Append
     "rem Clean previous server file info first" | out-file $serverstartfile -Append
@@ -122,7 +113,8 @@ function EmacsServer {
 Function InstallFonts {
     #Download the fonts from the all-the-icons github and then install them.
     $TempFontFolder = $env:TEMP + "\all-the-icons\"
-    mkdir $TempFontFolder 
+    Remove-Item $TempFontFolder
+    mkdir $TempFontFolder
     $TempFontFolder = $env:TEMP + "\all-the-icons\all-the-icons.ttf"
     Invoke-WebRequest -Uri https://raw.githubusercontent.com/domtronn/all-the-icons.el/master/fonts/all-the-icons.ttf -OutFile $TempFontFolder
     $TempFontFolder = $env:TEMP + "\all-the-icons\file-icons.ttf"
