@@ -1,4 +1,4 @@
-# DoomEmacsInstall
+# Doom Emacs Installer Script for Windows
 
 Does your work require you to use windows for pretty much no reason other than they can't spy on you?!
 
