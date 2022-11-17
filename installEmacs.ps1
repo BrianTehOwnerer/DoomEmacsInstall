@@ -44,7 +44,7 @@ Function Main {
         $Menu = Read-Host -Prompt '(0-5 or Q to Quit)'
         switch ($Menu) {
             1 {
-                SetEnvironmentalVeriables
+                SetEnvironmentalVariables
                 InstallChco
                 GitDoom
                 InstallDoom
@@ -63,7 +63,7 @@ Function Main {
                 InstallFonts
             }
             5 {
-                SetEnvironmentalVeriables
+                SetEnvironmentalVariables
             }
             Q {
                 Exit
@@ -77,7 +77,7 @@ Function Main {
 }   
 
 
-function SetEnvironmentalVeriables {
+function SetEnvironmentalVariables {
     ##This bit of code writes the new $PATH value to the registry... yes windows is this stupid you have to read the old value, add yours to it, and write it back whole hog.
     $LoggedInUser = $env:UserName
 
