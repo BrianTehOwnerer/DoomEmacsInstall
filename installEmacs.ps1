@@ -102,7 +102,7 @@ function InstallChco {
 }
 
 function GitDoom {
-    $emacsfolder = "C:\Users\" + $env:UserName + ".emacs.d"
+    $emacsfolder = "C:\Users\" + $env:UserName + "\.emacs.d"
     git clone --depth 1 https://github.com/doomemacs/doomemacs $emacsfolder
 }
 
