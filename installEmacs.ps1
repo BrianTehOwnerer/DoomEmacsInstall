@@ -107,7 +107,7 @@ function GitDoom {
 }
 
 function InstallDoom {
-    ~/.emacs.d/bin/doom.cmd install 
+    "C:\Users\" + $env:UserName + "\.emacs.d\bin\doom.cmd install" 
 }
 
 function EmacsShortcuts {
